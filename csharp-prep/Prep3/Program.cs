@@ -25,15 +25,14 @@ class Program
 
             while (userGuess != magicNumber)
             {
-                Console.Write("Enter your guess");
+                Console.Write("Enter your guess: ");
                 string input = Console.ReadLine();
 
                 if (int.TryParse(input, out userGuess))
                 {
                     if (userGuess < magicNumber)
                     {
-                        Console.WriteLine("Higher");
-                    }
+                        Console.WriteLine("Higher! ");
                     }
                     else if (userGuess > magicNumber)
                     {
@@ -46,14 +45,16 @@ class Program
                 }
                 else
                 {
-                    Console.WriteLine("[Please enter a valid number");
+                    Console.WriteLine("Please enter a valid number");
                 }
             }
         }
+
         static bool AskToPlayAgain()
         {
             Console.WriteLine("Do you want to play again (yes/no)");
             string response = Console.ReadLine().ToLower();
             return response == "yes" || response == "y";
         }
+    }
 }
