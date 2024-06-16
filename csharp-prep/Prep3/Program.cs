@@ -9,44 +9,43 @@ class Program
         while (playAgain) 
         {
             PlayGame();
-             playAgain = AskToPlayAgain();
+            AskToPlayAgain();
         }
 
         Console.WriteLine("Thanks for playing again, Goodbye!");
 
         static void PlayGame()
         {
-            Random random = new Random();
-            int magicNumber = random.Next(1, 101); //generates a random number between 1 and 100
-            int userGuess = 0;
+            Console.WriteLine("Welcome to the Guess number Game.");
 
-            Console.WriteLine("Welcome to the Guess number Game");
-            Console.WriteLine("I'm thinking of a number between 1 and 100, can you guess it?");
+            Console.Write("Input a magic number: ");
+            string userInput = Console.ReadLine();
+            int magicNumber = int.Parse(userInput);
+
+            Console.Write("Guess the magic number: ");
+            string input = Console.ReadLine();
+            int userGuess = int.Parse(input);
 
             while (userGuess != magicNumber)
             {
-                Console.Write("Enter your guess: ");
-                string input = Console.ReadLine();
+                Console.Write("Please take another guess: ");
+                string newinput = Console.ReadLine();
+                int guess = int.Parse(newinput);
 
-                if (int.TryParse(input, out userGuess))
-                {
-                    if (userGuess < magicNumber)
+                    if (guess < magicNumber)
                     {
                         Console.WriteLine("Higher! ");
                     }
-                    else if (userGuess > magicNumber)
+                    else if (guess > magicNumber)
                     {
                         Console.WriteLine("Lower");
                     }
                     else
                     {
                         Console.WriteLine($"Congratulations! You guessed the magic number {magicNumber}");
+                        AskToPlayAgain();
+                        PlayGame();
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Please enter a valid number");
-                }
             }
         }
 
