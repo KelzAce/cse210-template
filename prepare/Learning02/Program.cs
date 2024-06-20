@@ -18,8 +18,14 @@ class Program
         Job job3 = new Job();
         job3._jobTitle = "Doctor";
         job3._company = "City Hospital";
-        job3._startYear = 2020;
-        job3._endYear = 2004;
+        job3._startYear = 2015;
+        job3._endYear = 2019;
+
+        Job job4 = new Job();
+        job4._jobTitle = "Surgeon";
+        job4._company = "Abuja Hospital";
+        job4._startYear = 2020;
+        job4._endYear = 2024;
 
         Resume myResume = new Resume();
         Resume myResume2 = new Resume();
@@ -30,13 +36,11 @@ class Program
         myResume3._name = "Ice Smart";
 
         myResume._jobs.Add(job1);
-        myResume._jobs.Add(job2);
-        myResume._jobs.Add(job3);
 
-        myResume2._jobs.Add(job1);
         myResume2._jobs.Add(job2);
 
         myResume3._jobs.Add(job3);
+        myResume3._jobs.Add(job4);
 
         myResume.Dispay();
         myResume2.Dispay();
