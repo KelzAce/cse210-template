@@ -2,10 +2,15 @@ using System;
 
 public class Journal()
 {
-    public List<Entry> prompt = new List<Entry>();
+    public List<Entry> prompts = new List<Entry>();
 
     public void Display()
     {
-        Console.WriteLine($"{prompt}");
+        Console.WriteLine("Prompt: ");
+
+        foreach (Entry prompt in prompts)
+        {
+            prompt.Display();
+        }
     }
 }
