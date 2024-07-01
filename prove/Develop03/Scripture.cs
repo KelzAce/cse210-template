@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 
 public class Scripture
@@ -14,11 +17,11 @@ public class Scripture
 
     public void HideRandomWords(int count = 3)
     {
-      var visibleWords = words.Where(word => !word._isHidden).ToList();
-      if (visibleWords.Count > 0)
+      var visibleWords = words.Where(words => !words._isHidden).ToList();
+      if (visibleWords.count > 0)
       {
         var random = new Random();
-        var wordsToHide = visibleWords.OrderBy(x => random.Next()).Take(Math.Min(count, visibleWords.Count)).ToList();
+        var wordsToHide = visibleWords.OrderBy(x => random.Next()).Take(Math.Min(count, visibleWords.count)).ToList();
         wordsToHide.ForEach(Word => word.Hide());
       }
 
@@ -32,6 +35,6 @@ public class Scripture
 
     public bool isCompletelyHidden()
     {
-       return words.All(word => word._isHidden);
+       return words.All(words => words._isHidden);
     }
 }

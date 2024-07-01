@@ -20,10 +20,10 @@ public class Word
         _isHidden = true;
     }
 
-    public override string Show()
-    {
-        _isHidden ? new string('_', _text.Length) : _text;
-    } 
+    // public override string Show()
+    // {
+    //     _isHidden ? new string('_', _text.Length) : _text;
+    // } 
 
     public bool IsHidden()
     {
