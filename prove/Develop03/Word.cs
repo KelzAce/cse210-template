@@ -6,8 +6,8 @@ using System.Linq;
 public class Word
 {
 
-    private string _text;
-    private bool _isHidden;
+    public string _text;
+    public bool _isHidden;
     
 
     public Word(string text)

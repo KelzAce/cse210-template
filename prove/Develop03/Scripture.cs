@@ -18,11 +18,11 @@ public class Scripture
     public void HideRandomWords(int count = 3)
     {
       var visibleWords = words.Where(words => !words._isHidden).ToList();
-      if (visibleWords.count > 0)
+      if (visibleWords.Count > 0)
       {
         var random = new Random();
-        var wordsToHide = visibleWords.OrderBy(x => random.Next()).Take(Math.Min(count, visibleWords.count)).ToList();
-        wordsToHide.ForEach(Word => word.Hide());
+        var wordsToHide = visibleWords.OrderBy(x => random.Next()).Take(Math.Min(count, visibleWords.Count)).ToList();
+        wordsToHide.ForEach(word => word.Hide());
       }
 
     }
