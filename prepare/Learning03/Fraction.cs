@@ -39,7 +39,7 @@ public class Fraction
         _top = numerator;
     }
     
-      public int GetButtom()
+    public int GetButtom()
     {
         return _buttom;
     }
