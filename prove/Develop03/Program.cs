@@ -3,46 +3,65 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-class Program
+namespace ScriptureMemorization
+{
+    class Program
 {
     static void Main(string[] args)
     {
-        var scriptures = LoadScriptureFromFile("scripture.txt");
-        var program = new ScriptureProgram(scriptures);
-        program.Run();
+        //path to scripture file
+        string filePath = "scriptures.txt";
+
+
+        //load scriptures from file
+        var scriptures = LoadScriptures("scripture.txt");
+
+        if (scriptures.Count == 0)
+        {
+            Console.WriteLine("No scriptures found");
+            return;
+        }
+        
+        Random random = new Random();
+        Scripture selectedScripture = scriptures[random.Next(scriptures.Count)];
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine(selectedScripture);
+            Console.WriteLine("\nPress Enter to hide a few words or type 'quit' to exit");
+            string input = Console.ReadLine();
+
+            if (input.ToLower() == "quit")
+                break;
+
+            selectedScripture.HideRandomWords();
+            if (selectedScripture.AllWordsHidden())
+            {
+                Console.Clear();
+                Console.WriteLine("All words are hidden.  Well done!");
+                break;
+            }
+        }
     }
 
-    static List<Scripture> LoadScriptureFromFile(string filename)
+    static List<Scripture> LoadScriptures(string filePath)
     {
         var scriptures = new List<Scripture>();
-        foreach (var line in File.ReadAllLines(filename))
+
+        if (File.Exists(filePath))
         {
-            var parts = line.Split('|');
-            var reference = parts[0].Trim();
-            var text = parts[1].Trim();
-
-            var refParts = reference.Split(' ');
-            var book = refParts[0];
-            var chapterVerses = refParts[1].Split(':');
-            var chapter = int.Parse(chapterVerses[0]);
-            var verses = chapterVerses[1];
-
-            if (verses.Contains('-'))
+            var lines = File.ReadAllLines(filePath);
+            for (int i = 0; i < lines.Length; i+=2)
             {
-                var verseRange = verses.Split('-');
-                var startVerse = int.Parse(verseRange[0]);
-                var endverse = int.Parse(verseRange[1]);
-                var refObj = new ScriptureReference(book, chapter, startVerse);
-                scriptures.Add(new Scripture(refObj, text));
-            }
-            else
-            {
-                var startVerse = int.Parse(verses);
-                var refObj = new ScriptureReference(book, chapter, startVerse);
-                scriptures.Add(new Scripture(refObj, text));
+                if (i + 1 < lines.Length)
+                {
+                    scriptures.Add(new Scripture(new Reference(lines[i]), lines[i + 1]));
+                }
             }
         }
 
         return scriptures;
     }
+}
 }

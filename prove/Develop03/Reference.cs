@@ -1,24 +1,30 @@
 using System;
 
-
-public class Reference
+namespace ScriptureMemorization
 {
-    private string _book;
-    private int _chapter;
-    private int _verse;
-    private int _endVerse;
+  public class Reference
+ {
+    public string Book {get; private set;}
+    public int Chapter {get; private set;}
+    public int StartVerse {get; private set;}
+    public int EndVerse {get; private set;}
+    public bool IsSingleVerse => StartVerse == EndVerse;
 
 
-    public Reference(string book, int chapter, int startverse, int endVerse)
+    public Reference(string reference)
     {
-       _book = book;
-       _chapter = chapter;
-       _verse = startverse;
-       _endVerse = endVerse;
+       var parts = reference.Split(' ');
+       Book = parts[0];
+       var chapterAndVerses = parts[1].Split(':');
+       Chapter = int.Parse(chapterAndVerses[0]);
+       var verses = chapterAndVerses[1].Split('_');
+       StartVerse = int.Parse(verses[0]);
+       EndVerse = verses.Length > 1 ? int.Parse(verses[1]) : StartVerse;
     }
-    public string GetDisplayText()
+    public override string ToString()
     {
-      return "";
+      return IsSingleVerse ? $"{Book} {Chapter}:{StartVerse}" : $"{Book} {Chapter}:{StartVerse}-{EndVerse}";
     }
  
+}
 }

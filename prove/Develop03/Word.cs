@@ -1,37 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-public class Word
+namespace ScriptureMemorization
+{
+    public class Word
 {
 
-    public string _text;
-    public bool _isHidden;
+    public string Text {get; private set;}
+    public bool IsHidden {get; private set;}
     
 
     public Word(string text)
     {
-        _text = text;
-        _isHidden = false;
+        Text = text;
+        IsHidden = false;
     }
     public void Hide()
     {
-        _isHidden = true;
+        IsHidden = true;
     }
 
-    // public override string Show()
-    // {
-    //     _isHidden ? new string('_', _text.Length) : _text;
-    // } 
-
-    public bool IsHidden()
+    public override string ToString()
     {
-        return false;
+       return IsHidden ? "_____" : Text;
     }
-
-    public string GetDisplayText()
-    {
-       return "";
-    }
+}
 }

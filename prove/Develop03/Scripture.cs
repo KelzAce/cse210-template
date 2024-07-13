@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-
-public class Scripture
+namespace ScriptureMemorization
 {
-    private ScriptureReference _reference;
-    private List<Word> words;
+  public class Scripture
+{
+  public Reference Reference {get; private set;}
+  private List<Word> Words {get; set;}
 
-    public Scripture(ScriptureReference reference, string text)
+    public Scripture(Reference reference, string text)
     {
-        _reference = reference;
-        words = text.Split().Select(word => new Word(word)).ToList();
+        Reference = reference;
+        Words = text.Split(' ').Select(w => new Word(w)).ToList();
     }
 
-    public void HideRandomWords(int count = 3)
+    public void HideRandomWords()
     {
-      var visibleWords = words.Where(words => !words._isHidden).ToList();
-      if (visibleWords.Count > 0)
+     Random random = new Random();
+     int wordsToHide = Math.Min(3, Words.Count(w => !w.IsHidden));
+
+     for (int i = 0; i < wordsToHide; i++)
+     {
+      List<Word> visibleWords = Words.Where(w => !w.IsHidden).ToList();
+      if (visibleWords.Count == 0) break;
+
+      visibleWords[random.Next(visibleWords.Count)].Hide();
+     }
+    }
+
+    public bool AllWordsHidden()
+    {
+      return Words.All(w => w.IsHidden);
+    }
+
+    public override string ToString()
       {
-        var random = new Random();
-        var wordsToHide = visibleWords.OrderBy(x => random.Next()).Take(Math.Min(count, visibleWords.Count)).ToList();
-        wordsToHide.ForEach(word => word.Hide());
+        return $"{Reference}\n{string.Join(' ', Words)}";
       }
-
-    }
-
-    public string GetDisplayText()
-    {
-      var wordsTest = string.Join(" ", words);
-      return $"{_reference}\n{wordsTest}";
-    }
-
-    public bool isCompletelyHidden()
-    {
-       return words.All(words => words._isHidden);
     }
 }
