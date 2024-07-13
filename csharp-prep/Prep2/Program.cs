@@ -9,11 +9,9 @@ class Program
         int grade = int.Parse(userInput);
 
         // string letter;
-
         if (grade >= 90 ) 
             {
                 string letter = "A";
-                
                 Console.WriteLine($"Your letter grade is, {letter}");
                   if (grade >= 90) 
                  {
